@@ -1,6 +1,6 @@
 # kubernetes-the-hard-way-modified
 
-본 가이드는 [켈시 하이타워](https://github.com/kelseyhightower)의 [쿠버네티스 하드웨이](https://github.com/kelseyhightower/kubernetes-the-hard-way) 각색하여 제작했습니다.
+본 가이드는 [켈시 하이타워](https://github.com/kelseyhightower)의 [쿠버네티스 하드웨이](https://github.com/kelseyhightower/kubernetes-the-hard-way)를 각색하여 제작했습니다.
 
 ## 순서
 
