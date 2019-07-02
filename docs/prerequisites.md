@@ -148,7 +148,7 @@ gcloud compute instances list
 ### 2-9. 자주쓰는 쉘 만들어놓기 (필수 아님)
 - config-update.sh
 ```sh
-gcloud config set project k-hard-way-1
+gcloud config set project {프로젝트명}
 gcloud config set compute/region us-west2
 gcloud config set compute/zone us-west2-c
 ```
