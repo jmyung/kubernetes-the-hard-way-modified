@@ -13,7 +13,7 @@
 - 사이트 가입 : https://console.cloud.google.com/
 - 필요 사항 : 해외 결제 가능한 신용 카드 등록
 - 본 가이드는 1년간 무료로 주어지는 $300 크래딧 내에서 진행합니다.
-- AWS에서 VM을 띄우셔도 상관없습니다. 단 방화벽 작업은 이하 내용을 참고하여 해제해주세요.
+- AWS에서 VM을 띄우셔도 상관없습니다. 단 [방화벽 작업](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/prerequisites.md#vpc-%EC%83%9D%EC%84%B1-%EC%84%9C%EB%B8%8C%EB%84%B7-%EC%83%9D%EC%84%B1-%EB%B0%A9%ED%99%94%EB%B2%BD-%ED%95%B4%EC%A0%9C)은 이하 내용을 참고하여 해제해주세요.
 
 
 ## 2. VM 띄우기
