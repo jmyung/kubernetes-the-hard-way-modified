@@ -1,4 +1,4 @@
-# STEP-01. CA 프로비저닝 및 TLS 인증서 생성
+# LAB-01. CA 프로비저닝 및 TLS 인증서 생성
 
 - 이 랩에서는 CloudFlare의 PKI 툴킷인 cfssl을 사용하여 PKI 인프라를 구축한 다음
 - 이를 사용하여 CA(인증 기관)을 부트스트랩하고,
@@ -19,7 +19,7 @@
 
 ## 2. CA 프로비저닝
 
-```json
+```sh
 {
 
 cat > ca-config.json <<EOF
@@ -72,7 +72,7 @@ ca.pem
 
 ### 3-1. admin 클라이언트 인증서 및 개인키 생성
 
-```json
+```sh
 {
 
 cat > admin-csr.json <<EOF
@@ -166,7 +166,7 @@ worker-1.pem
 
 `kube-controller-manager` 클라이언트 인증서 및 개인 키 생성
 
-```json
+```sh
 {
 
 cat > kube-controller-manager-csr.json <<EOF
@@ -208,7 +208,7 @@ kube-controller-manager.pem
 
 `kube-proxy` 클라이언트 인증서 및 개인 키 생성
 
-```json
+```sh
 {
 
 cat > kube-proxy-csr.json <<EOF
@@ -250,7 +250,7 @@ kube-proxy.pem
 
 `kube-scheduler` 클라이언트 인증서 및 개인 키 생성
 
-```json
+```sh
 {
 
 cat > kube-scheduler-csr.json <<EOF
@@ -343,7 +343,7 @@ Kubernetes Controller Manager는 [managing service accounts](https://kubernetes.
 
 `service-account` 인증서 및 개인 키 생성
 
-```json
+```sh
 {
 
 cat > service-account-csr.json <<EOF
