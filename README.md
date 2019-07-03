@@ -5,7 +5,7 @@
 ## 순서
 
 0. [사전준비](./docs/prerequisites.md)
-1. [CA 프로비저닝 및 TLS 인증서 생성](./docs/step-01.md)
+1. [CA 프로비저닝 및 TLS 인증서 생성](./docs/lab-01.md)
 2. 인증을 위한 Kubernetes config 파일 생성
 3. 데이터 암호화 구성 및 키 생성
 4. etcd 클러스터 부트스트래핑

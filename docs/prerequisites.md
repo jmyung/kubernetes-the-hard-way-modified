@@ -125,7 +125,7 @@ gcloud compute instances create load-balancer \
   --subnet kubernetes \
   --tags kubernetes-the-hard-way,load-balancer
 ```
-- Static Public IP 생성
+- 정적 Public IP 생성
 ```sh
 gcloud compute addresses create kubernetes-the-hard-way \
   --region $(gcloud config get-value compute/region)
@@ -134,7 +134,7 @@ gcloud compute addresses create kubernetes-the-hard-way \
 ```sh
 gcloud compute addresses list --filter="name=('kubernetes-the-hard-way')"
 ```
-- IP를 로드밸런서 VM에 붙이기
+- 정적 IP를 로드밸런서 VM에 붙이기
 ```sh
 gcloud compute instances delete-access-config load-balancer --access-config-name "external-nat"
 gcloud compute instances add-access-config load-balancer --access-config-name "external-nat" --address [바로위에 확인된 IP 기입]
