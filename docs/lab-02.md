@@ -187,7 +187,7 @@ kube-scheduler.kubeconfig
 admin.kubeconfig
 ```
 
-## kubeconfig 파일 배포
+## 2. kubeconfig 파일 배포
 
 `kubelet` 및 `kube-proxy` kubeconfig 파일을 각 워커 노드에 복사합니다.
 
