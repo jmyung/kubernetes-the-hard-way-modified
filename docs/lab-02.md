@@ -8,11 +8,13 @@ In this lab you will generate Kubernetes configuration files, also known as kube
 ## 1. 클라이언트 인증 구성
 
 이 섹션에서는 이하의 kubeconfig 파일을 생성합니다.
-- `controller manager`
-- `kubelet`
-- `kube-proxy`
-- `scheduler` 클라이언트
-- `admin` 사용자
+- 워커 노드 용
+  - `kubelet`
+  - `kube-proxy`
+- 마스터 노드 용
+  - `controller manager`
+  - `scheduler` 클라이언트
+  - `admin` 사용자
 
 ### 1-2. 정적 Public IP 조회
 
@@ -195,7 +197,7 @@ for instance in worker-0 worker-1; do
 done
 ```
 
-`kubelet` 및 `kube-proxy` kubeconfig 파일을 각 마스터 노드에 복사합니다.
+`kube-controller-manage`, `kube-scheduler`, `admin` 사용자 kubeconfig 파일을 각 마스터 노드에 복사합니다.
 
 ```sh
 for instance in controller-0 controller-1; do
