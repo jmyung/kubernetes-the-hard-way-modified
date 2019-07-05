@@ -20,8 +20,6 @@ wget -q --show-progress --https-only --timestamping \
   "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz"
 ```
 
-Extract and install the `etcd` server and the `etcdctl` command line utility:
-
 `etcd` 서버와 `etcdctl` 커맨드 라인 유틸리티 설치
 
 ```
@@ -48,9 +46,7 @@ INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
 ```
 
-각 etcd 멤버는 etcd 클러스터 내에서 고유 한 이름을 가져야합니다. 현재 계산 인스턴스의 호스트 이름과 일치하도록 etcd 이름을 설정하십시오.
-
-Each etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
+각 etcd 멤버는 etcd 클러스터 내에서 고유한 이름을 가져야합니다. 현재 VM의 호스트 이름과 일치하도록 etcd 이름을 설정하십시오.
 
 ```
 ETCD_NAME=$(hostname -s)
