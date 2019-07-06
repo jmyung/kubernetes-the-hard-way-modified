@@ -13,7 +13,7 @@
 6. [Kubernetes Worker Nodes 부트스트래핑](./docs/lab-06.md)
 7. [원격 액세스를 위한 kubectl 구성](./docs/lab-07.md)
 8. [네트워킹](./docs/lab-08.md)
-9. DNS 클러스터 추가 기능 배포
+9. [DNS 클러스터 추가 기능 배포](./docs/lab-09.md)
 10. 스모크 테스트
 
 
