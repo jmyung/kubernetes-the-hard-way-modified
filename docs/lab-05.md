@@ -6,7 +6,7 @@
 
 ## 1. 준비 사항
 
-이 랩에서 명령은 각 마스터 노드인 `controller-0`,`controller-1` 에서 실행되어야 합니다.
+이 랩에서 명령은 마스터 노드인 `controller-0`,`controller-1` 모두 에서 실행되어야 합니다.
 
 GCP 인스턴스 ssh 로그인
 ```
