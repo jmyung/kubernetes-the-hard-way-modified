@@ -10,8 +10,8 @@
 3. [데이터 암호화 구성 및 키 생성](./docs/lab-03.md)
 4. [etcd 클러스터 부트스트래핑](./docs/lab-04.md)
 5. [Kubernetes Control Plane 부트스트래핑](./docs/lab-05.md)
-6. Kubernetes Worker Nodes 부트스트래핑
-7. 원격 액세스를 위한 kubectl 구성
+6. [Kubernetes Worker Nodes 부트스트래핑](./docs/lab-06.md)
+7. [원격 액세스를 위한 kubectl 구성](./docs/lab-07.md)
 8. 네트워킹
 9. DNS 클러스터 추가 기능 배포
 10. 스모크 테스트
