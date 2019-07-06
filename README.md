@@ -12,7 +12,7 @@
 5. [Kubernetes Control Plane 부트스트래핑](./docs/lab-05.md)
 6. [Kubernetes Worker Nodes 부트스트래핑](./docs/lab-06.md)
 7. [원격 액세스를 위한 kubectl 구성](./docs/lab-07.md)
-8. 네트워킹
+8. [네트워킹](./docs/lab-08.md)
 9. DNS 클러스터 추가 기능 배포
 10. 스모크 테스트
 
@@ -20,5 +20,5 @@
 ## 켈시 하이타워 가이드 와의 차이점
 - 마스터, 워커를 2개씩만 띄움 (실습 목적)
 - `containerd` 대신 `docker` 사용
-- 로드밸런서를 GCP서비스를 사용하지 않고 `직접 구성`
-- CNI를 `weave-net` 사용
+- 로드밸런서를 GCP서비스를 사용하지 않고 `nginx로 직접 구성`
+- CNI : `weave-net`
