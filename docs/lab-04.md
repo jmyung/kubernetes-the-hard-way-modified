@@ -87,7 +87,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-### etcd 서버 시작
+### 2-3. etcd 서버 시작
 
 ```sh
 {
@@ -99,7 +99,7 @@ EOF
 
 > 각 마스터 노드에서 위의 명령을 실행합니다 : `controller-0`,`controller-1`
 
-## 확인
+## 3. 확인
 
 etcd 클러스터 멤버 조회
 

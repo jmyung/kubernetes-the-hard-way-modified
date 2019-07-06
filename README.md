@@ -8,8 +8,8 @@
 1. [CA 프로비저닝 및 TLS 인증서 생성](./docs/lab-01.md)
 2. [인증을 위한 Kubernetes config 파일 생성](./docs/lab-02.md)
 3. [데이터 암호화 구성 및 키 생성](./docs/lab-03.md)
-4. etcd 클러스터 부트스트래핑
-5. Kubernetes Control Plane 부트스트래핑
+4. [etcd 클러스터 부트스트래핑](./docs/lab-04.md)
+5. [Kubernetes Control Plane 부트스트래핑](./docs/lab-05.md)
 6. Kubernetes Worker Nodes 부트스트래핑
 7. 원격 액세스를 위한 kubectl 구성
 8. 네트워킹
