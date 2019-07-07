@@ -84,15 +84,10 @@ sudo apt install docker.io -y
 }
 ```
 
-```
-POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
-  http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr)
-```
-
 `kubelet-config.yaml` 설정 파일 생성
 
 ```yaml
-cat <<EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
+cat << EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 authentication:
@@ -107,15 +102,11 @@ authorization:
 clusterDomain: "cluster.local"
 clusterDNS:
   - "10.32.0.10"
-podCIDR: "${POD_CIDR}"
-resolvConf: "/run/systemd/resolve/resolv.conf"
 runtimeRequestTimeout: "15m"
 tlsCertFile: "/var/lib/kubelet/${HOSTNAME}.pem"
 tlsPrivateKeyFile: "/var/lib/kubelet/${HOSTNAME}-key.pem"
 EOF
 ```
-
-> `resolvConf` 설정은 `systemd-resolved`를 실행하는 시스템에서 CoreDNS를 사용할 때 루프를 피하기 위해 사용됩니다.
 
 `kubelet.service` systemd 파일 생성
 
