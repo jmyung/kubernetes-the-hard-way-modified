@@ -63,7 +63,9 @@ sudo mkdir -p \
 ```sh
 {
   chmod +x kubectl kube-proxy kubelet
-  sudo mv kubectl kube-proxy kubelet /usr/local/bin/
+  sudo mv kubectl kube-proxy kubelet /usr/local/bin
+  sudo tar -xvf crictl-v1.0.0-beta.0-linux-amd64.tar.gz -C /usr/local/bin/
+  sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
 }
 ```
 
