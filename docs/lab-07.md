@@ -8,7 +8,7 @@
 
 각 kubeconfig에는 쿠버네티스 API 서버가 연결되어 있어야 합니다. 고가용성을 지원하기 위해 로드밸런서에 할당된 IP 주소가 사용됩니다.
 
-`admin` 사용자용 kubeconfig 파일 생성
+`admin` 사용자용 컨텍스트 생성
 
 ```sh
 {
@@ -47,8 +47,8 @@ kubectl get componentstatuses
 NAME                 STATUS    MESSAGE             ERROR
 controller-manager   Healthy   ok
 scheduler            Healthy   ok
-etcd-1               Healthy   {"health":"true"}
 etcd-0               Healthy   {"health":"true"}
+etcd-1               Healthy   {"health":"true"}
 ```
 
 원격 쿠버네티스 클러스터의 노드 목록 조회
@@ -60,7 +60,7 @@ kubectl get nodes
 > 출력(예)
 
 ```sh
-NAME       STATUS   ROLES    AGE    VERSION
-worker-0            <none>   117s   v1.12.0
-worker-1            <none>   118s   v1.12.0
+NAME       STATUS     ROLES    AGE     VERSION
+worker-0   NotReady   <none>   9m42s   v1.12.0
+worker-1   NotReady   <none>   9m42s   v1.12.0
 ```

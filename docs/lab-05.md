@@ -273,7 +273,7 @@ ok
 
 파드(Pod)에서 메트릭, 로그 및 실행 명령을 검색하려면 Kubelet API에 액세스해야합니다.
 
-> This tutorial sets the Kubelet `--authorization-mode` flag to `Webhook`. Webhook mode uses the [SubjectAccessReview](https://kubernetes.io/docs/admin/authorization/#checking-api-access) API to determine authorization.
+> 이 가이드는 Kubelet `--authorization-mode` 플래그를 `Webhook`으로 설정합니다. Webhook 모드는 [SubjectAccessReview](https://kubernetes.io/docs/admin/authorization/#checking-api-access) API를 사용하여 접근 허가를 결정합니다.
 
 ```
 gcloud compute ssh controller-0
@@ -358,13 +358,18 @@ sudo vi /etc/nginx/nginx.conf
 include /etc/nginx/tcpconf.d/*;
 ```
 
+```
+CONTROLLER0_INTERNAL_IP=10.240.0.10
+CONTROLLER1_INTERNAL_IP=10.240.0.11
+```
+
 구성 파일을 만들어 쿠버네티스 API 로드밸런싱 구성
 ```sh
 cat << EOF | sudo tee /etc/nginx/tcpconf.d/kubernetes.conf
 stream {
     upstream kubernetes {
-        server <controller 0 private ip>:6443;
-        server <controller 1 private ip>:6443;
+        server ${CONTROLLER0_INTERNAL_IP}:6443;
+        server ${CONTROLLER1_INTERNAL_IP}:6443;
     }
 
     server {

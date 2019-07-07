@@ -38,15 +38,20 @@ OS dependencies 설치
 
 ```sh
 wget -q --show-progress --https-only --timestamping \
+  https://github.com/kubernetes-incubator/cri-tools/releases/download/v1.0.0-beta.0/crictl-v1.0.0-beta.0-linux-amd64.tar.gz \
+  https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-proxy \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubelet
 ```
 
+
 설치 디렉토리 생성
 
 ```sh
 sudo mkdir -p \
+  /etc/cni/net.d \
+  /opt/cni/bin \
   /var/lib/kubelet \
   /var/lib/kube-proxy \
   /var/lib/kubernetes \
@@ -55,13 +60,17 @@ sudo mkdir -p \
 
 워커 바이너리 설치
 
-```
+```sh
 {
   chmod +x kubectl kube-proxy kubelet
   sudo mv kubectl kube-proxy kubelet /usr/local/bin/
 }
 ```
 
+도커 설치
+```sh
+sudo apt install docker.io -y
+```
 
 ### 2-2. Kubelet 구성
 
@@ -71,6 +80,11 @@ sudo mkdir -p \
   sudo mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
   sudo mv ca.pem /var/lib/kubernetes/
 }
+```
+
+```
+POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
+  http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr)
 ```
 
 `kubelet-config.yaml` 설정 파일 생성
@@ -114,8 +128,7 @@ Requires=containerd.service
 [Service]
 ExecStart=/usr/local/bin/kubelet \\
   --config=/var/lib/kubelet/kubelet-config.yaml \\
-  --container-runtime=remote \\
-  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
+  --container-runtime=docker \\
   --image-pull-progress-deadline=2m \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
   --network-plugin=cni \\
@@ -172,8 +185,8 @@ EOF
 ```
 {
   sudo systemctl daemon-reload
-  sudo systemctl enable containerd kubelet kube-proxy
-  sudo systemctl start containerd kubelet kube-proxy
+  sudo systemctl enable kubelet kube-proxy
+  sudo systemctl start kubelet kube-proxy
 }
 ```
 
@@ -193,7 +206,7 @@ gcloud compute ssh controller-0 \
 > 출력
 
 ```
-NAME       STATUS   ROLES    AGE   VERSION
-worker-0            <none>   35s   v1.12.0
-worker-1            <none>   36s   v1.12.0
+NAME       STATUS     ROLES    AGE    VERSION
+worker-0   NotReady   <none>   103s   v1.12.0
+worker-1   NotReady   <none>   103s   v1.12.0
 ```

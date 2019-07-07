@@ -34,7 +34,7 @@ weave-net-vmb2n   2/2       Running   0          11s
 2개의 레플리카를 spec으로 하는 nginx 디플로이먼트 생성
 
 ```yaml
-cat << EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+cat << EOF | kubectl apply -f -
 apiVersion: apps/v1
 kind: Deployment
 metadata:
