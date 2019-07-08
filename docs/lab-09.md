@@ -38,14 +38,14 @@ kubectl get svc
 테스트용 busybox 파드 실행
 
 ```sh
-kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
-POD_NAME=$(kubectl get pods -l run=busybox -o jsonpath="{.items[0].metadata.name}")
+kubectl run busybox2 --image=busybox:1.28 --command -- sleep 3600
+POD_NAME2=$(kubectl get pods -l run=busybox2 -o jsonpath="{.items[0].metadata.name}")
 ```
 
 DNS 작동 확인
 
 ```sh
-kubectl exec $POD_NAME -- nslookup nginx
+kubectl exec $POD_NAME2 -- nslookup nginx
 ```
 
 ```

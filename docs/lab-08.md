@@ -103,7 +103,7 @@ kubectl exec $POD_NAME -- curl <두번째 nginx 파드 IP 주소>
 kubectl get svc
 ```
 
-nginx 서비스 IP 주소 확인
+nginx 서비스 IP 주소 확인(예)
 ```
 NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   10.32.0.1    <none>        443/TCP   1h
