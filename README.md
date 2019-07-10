@@ -2,6 +2,12 @@
 
 본 가이드는 [켈시 하이타워](https://github.com/kelseyhightower)의 [쿠버네티스 하드웨이](https://github.com/kelseyhightower/kubernetes-the-hard-way)를 각색하여 제작했습니다.
 
+
+## 아키텍쳐
+
+![architecture](./docs/kthw.png "architecture")
+
+
 ## 순서
 
 0. [사전준비](./docs/prerequisites.md)
