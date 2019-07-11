@@ -383,14 +383,14 @@ service-account.pem
 
 ## 4. 클라이언트 및 서버 인증서 배포
 
-워커 노드에 배포
+- 워커 노드에 배포 : `ca`, `Kubelet 클라이언트 인증서`, `Kubelet 클라이언트 키`
 ```sh
 for instance in worker-0 worker-1; do
   gcloud compute scp ca.pem ${instance}-key.pem ${instance}.pem ${instance}:~/
 done
 ```
 
-마스터 노드에 배포
+- 마스터 노드에 배포 : `ca`, `ca key`, `api-server 인증서`, `api-server key`, `service account 키페어`
 ```sh
 for instance in controller-0 controller-1; do
   gcloud compute scp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
