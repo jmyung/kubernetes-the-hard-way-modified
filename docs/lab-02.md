@@ -1,7 +1,5 @@
 # LAB-02. 인증을 위한 Kubernetes config 파일 생성
 
-In this lab you will generate Kubernetes configuration files, also known as kubeconfigs, which enable Kubernetes clients to locate and authenticate to the Kubernetes API Servers.
-
 - 이 랩에서는 `kubeconfig`이라 불리는, [Kubernetes 설정 파일](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 생성합니다.
 - kubeconfig는 Kubernetes 클라이언트가 Kubernetes API 서버를 찾고 인증 할 수 있도록 해줍니다.
 
