@@ -10,9 +10,18 @@
   - `kubelet`
   - `kube-proxy`
 - 마스터 노드 용
-  - `controller manager`
-  - `scheduler` 클라이언트
+  - `kube-controller-manager`
+  - `kube-scheduler` 클라이언트
   - `admin` 사용자
+
+> 위 쿠버네티스 컴포넌트에 대한 설명은 [이곳](https://kubernetes.io/ko/docs/concepts/overview/components/)을 참고하세요.
+
+### 1-1. kubeconfig 해부
+
+- kubectl config set-cluster : 클러스터 위치에 대한 구성을 설정
+- kubectl config set-credentials : 인증에 사용되는 사용자 이름 및 클라이언트 인증서를 설정
+- kubectl config set-context default : 디폴트 컨텍스트를 설정
+- kubectl config use-context default : 위 구성으로 현재 컨텍스트를 설정
 
 ### 1-2. 정적 Public IP 조회
 
