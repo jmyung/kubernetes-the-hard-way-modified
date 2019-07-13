@@ -26,5 +26,5 @@
 ## 켈시 하이타워 가이드 와의 차이점
 - 마스터, 워커를 2개씩만 띄움 (실습 목적)
 - `containerd` 대신 `docker` 사용
-- 로드밸런서를 GCP서비스를 사용하지 않고 `nginx로 직접 구성`
-- CNI : `weave-net`
+- 로드밸런서를 GCP 서비스를 사용하지 않고 `nginx로 직접 구성`
+- CNI 플러그인 (Pod network add-on) : `weave-net` 사용
