@@ -54,13 +54,22 @@ INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
 ```
 
+> (AWS 인 경우) INTERNAL_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+
+
 각 etcd 멤버는 etcd 클러스터 내에서 고유한 이름을 가져야합니다. 현재 VM의 호스트 이름과 일치하도록 etcd 이름을 설정합니다.
 
 ```
 ETCD_NAME=$(hostname -s)
 ```
 
-`etcd.service` systemd 파일 생성
+INITIAL_CLUSTER에 etcd 클러스터의 모든 서버 리스트를 설정합니다.
+
+```sh
+INITIAL_CLUSTER=controller-0=https://10.240.0.10:2380,controller-1=https://10.240.0.11:2380
+```
+
+`etcd.service` systemd 유닛 파일 생성
 
 ```
 cat <<EOF | sudo tee /etc/systemd/system/etcd.service
@@ -84,7 +93,7 @@ ExecStart=/usr/local/bin/etcd \\
   --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
   --advertise-client-urls https://${INTERNAL_IP}:2379 \\
   --initial-cluster-token etcd-cluster-0 \\
-  --initial-cluster controller-0=https://10.240.0.10:2380,controller-1=https://10.240.0.11:2380 \\
+  --initial-cluster ${INITIAL_CLUSTER} \\
   --initial-cluster-state new \\
   --data-dir=/var/lib/etcd
 Restart=on-failure
