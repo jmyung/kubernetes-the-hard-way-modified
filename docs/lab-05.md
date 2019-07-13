@@ -4,6 +4,24 @@
 - 각 노드에는 Kubernetes API Server, Scheduler 및 Controller Manager가 설치됩니다.
 - Kubernetes API 서버를 원격 클라이언트에 노출시키는 로드 밸런서를 만듭니다.
 
+
+## 0. 들어가기 전에
+
+- [컨트롤 플레인](https://kubernetes.io/ko/docs/concepts/#%ec%bf%a0%eb%b2%84%eb%84%a4%ed%8b%b0%ec%8a%a4-%ec%bb%a8%ed%8a%b8%eb%a1%a4-%ed%94%8c%eb%a0%88%ec%9d%b8)
+  - 쿠버네티스 클러스터를 제어하는 ​​서비스 (by 컨트롤 플레인 컴포넌트)
+  - 쿠버네티스 오브젝트의 레코드와 상태를 관리
+  - 클러스터에 대한 글로벌한 의사결정, 이벤트에 대한 탐지 및 응답 수행
+- 컨트롤 플레인 컴포넌트 (마스터)
+  - kube-apiserver : 쿠버네티스 API 제공. 사용자 - 클러스터 간 인터페이스
+  - etcd : 쿠버네티스 클러스터 데이터 저장소
+  - kube-scheduler : 가용한 워커 노드에 파드(pods) 스케줄링
+  - kube-controller-manager : 다양한 기능을 제공하는 4가지 종류의 컨트롤러를 실행
+  - ~~cloud-controller-manager : 클라우드 제공사업자와 상호작용 (AWS, GCP, Azure)~~
+
+
+> 위 쿠버네티스 컴포넌트에 대한 설명은 [이곳](https://kubernetes.io/ko/docs/concepts/overview/components/)을 참고하세요.
+
+
 ## 1. 준비 사항
 
 이 랩에서 명령은 마스터 노드인 `controller-0`,`controller-1` 모두 에서 실행되어야 합니다.
@@ -61,6 +79,12 @@ INTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip)
 ```
 
+위에서 확인된 마스터 노드 0, 1의 ip를 컨트롤러IP 변수에 각각 넣어줍니다. (예)
+```
+CONTROLLER0_IP=10.240.0.10
+CONTROLLER1_IP=10.240.0.11
+```
+
 `kube-apiserver.service` systemd 파일 생성
 
 ```sh
@@ -73,7 +97,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 ExecStart=/usr/local/bin/kube-apiserver \\
   --advertise-address=${INTERNAL_IP} \\
   --allow-privileged=true \\
-  --apiserver-count=3 \\
+  --apiserver-count=2 \\
   --audit-log-maxage=30 \\
   --audit-log-maxbackup=3 \\
   --audit-log-maxsize=100 \\
@@ -86,7 +110,7 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --etcd-cafile=/var/lib/kubernetes/ca.pem \\
   --etcd-certfile=/var/lib/kubernetes/kubernetes.pem \\
   --etcd-keyfile=/var/lib/kubernetes/kubernetes-key.pem \\
-  --etcd-servers=https://10.240.0.10:2379,https://10.240.0.11:2379 \\
+  --etcd-servers=https://$CONTROLLER0_IP:2379,https://$CONTROLLER1_IP:2379 \\
   --event-ttl=1h \\
   --experimental-encryption-provider-config=/var/lib/kubernetes/encryption-config.yaml \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.pem \\
@@ -99,7 +123,8 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --service-node-port-range=30000-32767 \\
   --tls-cert-file=/var/lib/kubernetes/kubernetes.pem \\
   --tls-private-key-file=/var/lib/kubernetes/kubernetes-key.pem \\
-  --v=2
+  --v=2 \\
+  --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
 Restart=on-failure
 RestartSec=5
 
@@ -107,6 +132,12 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ```
+
+> 1.13 버전부터는 encryption-provider-config 로 변경
+
+> --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS 추가
+
+> 명 check : endpoint-reconciler-type=master-count 가 빠져있음
 
 ### 2-3. 쿠버네티스 Controller Manager 구성하기
 
