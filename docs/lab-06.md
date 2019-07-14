@@ -1,14 +1,24 @@
 # LAB-06. Kubernetes Worker Nodes 부트스트래핑
 
+- 워커 노드 (Worker Nodes) : 쿠버네티스에서 관리하는 컨테이너 어플리케이션의 실제 작업을 담당합니다.
 - 이 랩에서는 두 개의 워커 노드를 부트스트랩 합니다.
+- 컨트롤 플레인 컴포넌트 (워커 노드)
+  - **[kubelet](https://kubernetes.io/docs/admin/kubelet)** : 워커 노드에서 실행되는 에이전트. Kubelet은 파드 스펙(PodSpec)을 받아, 파드에서 컨테이너가 동작하도록 관리합니다.
+  - **[kube-proxy](https://kubernetes.io/docs/concepts/cluster-administration/proxies)** : 워커 노드에서 실행되는 네트워크 프록시로서, 호스트의 네트워크 규칙(iptables)을 관리하고 요청에 대한 포워딩을 책임집니다. (NodePort로 들어온 트래픽을 클러스터 내의 적절한 파드로 리다이렉팅)
+  - **컨테이너 런타임** : 컨테이너 실행을 담당하는 소프트웨어
+
+
 - 다음 구성 요소가 각 노드에 설치됩니다.
-  - [kubelet](https://kubernetes.io/docs/admin/kubelet)
-  - [kube-proxy](https://kubernetes.io/docs/concepts/cluster-administration/proxies)
+  - kubelet
+  - kube-proxy
   - docker
   - ~~[runc](https://github.com/opencontainers/runc)~~
   - ~~[containerd](https://github.com/containerd/containerd)~~
-  - ~~[container networking plugins](https://github.com/containernetworking/cni)~~
+  - [container networking plugins](https://github.com/containernetworking/cni)
   - [gVisor](https://github.com/google/gvisor)
+
+- 아키텍쳐
+  ![architecture](kthw.png "architecture")
 
 
 ## 1. 준비 사항
@@ -38,7 +48,6 @@ OS dependencies 설치
 
 ```sh
 wget -q --show-progress --https-only --timestamping \
-  https://github.com/kubernetes-incubator/cri-tools/releases/download/v1.0.0-beta.0/crictl-v1.0.0-beta.0-linux-amd64.tar.gz \
   https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-proxy \
@@ -64,7 +73,6 @@ sudo mkdir -p \
 {
   chmod +x kubectl kube-proxy kubelet
   sudo mv kubectl kube-proxy kubelet /usr/local/bin
-  sudo tar -xvf crictl-v1.0.0-beta.0-linux-amd64.tar.gz -C /usr/local/bin/
   sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
 }
 ```
@@ -76,7 +84,7 @@ sudo apt install docker.io -y
 
 ### 2-2. Kubelet 구성
 
-```
+```sh
 {
   sudo mv ${HOSTNAME}-key.pem ${HOSTNAME}.pem /var/lib/kubelet/
   sudo mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
@@ -134,6 +142,8 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ```
+
+> kubelet이 hostname을 제대로 못가져 오는 경우, --hostname-override=${HOSTNAME}, --allow-privileged=true 를 사용해야할 수 도 있습니다.
 
 ### 2-3. 쿠버네티스 Proxy 구성
 
@@ -203,3 +213,5 @@ NAME       STATUS     ROLES    AGE    VERSION
 worker-0   NotReady   <none>   103s   v1.12.0
 worker-1   NotReady   <none>   103s   v1.12.0
 ```
+
+- 네트워크 설정이 아직 남아있기 때문에, `NotReady` 상태입니다.

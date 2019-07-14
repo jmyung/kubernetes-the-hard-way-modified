@@ -12,14 +12,18 @@
   - 쿠버네티스 오브젝트의 레코드와 상태를 관리
   - 클러스터에 대한 글로벌한 의사결정, 이벤트에 대한 탐지 및 응답 수행
 - 컨트롤 플레인 컴포넌트 (마스터)
-  - kube-apiserver : 쿠버네티스 API 제공. 사용자 - 클러스터 간 인터페이스
-  - etcd : 쿠버네티스 클러스터 데이터 저장소
-  - kube-scheduler : 가용한 워커 노드에 파드(pods) 스케줄링
-  - kube-controller-manager : 다양한 기능을 제공하는 4가지 종류의 컨트롤러를 실행
+  - **kube-apiserver** : 쿠버네티스 API 제공. 사용자 - 클러스터 간 인터페이스
+  - **etcd** : 쿠버네티스 클러스터 데이터 저장소
+  - **kube-scheduler** : 가용한 워커 노드에 파드(pods) 스케줄링
+  - **kube-controller-manager** : 다양한 기능을 제공하는 4가지 종류의 컨트롤러를 실행
   - ~~cloud-controller-manager : 클라우드 제공사업자와 상호작용 (AWS, GCP, Azure)~~
 
 
 > 위 쿠버네티스 컴포넌트에 대한 설명은 [이곳](https://kubernetes.io/ko/docs/concepts/overview/components/)을 참고하세요.
+
+
+- 아키텍쳐
+  ![architecture](kthw.png "architecture")
 
 
 ## 1. 준비 사항
@@ -136,7 +140,7 @@ EOF
 
 > 상황에 따라 --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS 추가해야할 수 있음
 
-> 명 check : endpoint-reconciler-type=master-count 가 빠져있음
+> check : endpoint-reconciler-type=master-count 가 빠져있음
 
 ### 2-3. 쿠버네티스 Controller Manager 구성하기
 
@@ -301,7 +305,8 @@ ok
 
 이 섹션에서는 쿠버네티스 API 서버가 각 워커 노드의 Kubelet API에 액세스 할 수 있도록 RBAC 권한을 구성합니다.
 
-파드(Pod)에서 메트릭, 로그 및 실행 명령을 검색하려면 Kubelet API에 액세스해야합니다.
+- RBAC (Role-Based Access Control) : 사용자의 역할을 기반으로 리소스에 대한 액세스를 제어하는 ​​방법
+- 예 : `kube-apiserver API`를 통해 파드(Pod)에서 메트릭, 로그 및 실행 명령을 검색하려면 `Kubelet API`에 액세스해야합니다.
 
 > 이 가이드는 Kubelet `--authorization-mode` 플래그를 `Webhook`으로 설정합니다. Webhook 모드는 [SubjectAccessReview](https://kubernetes.io/docs/admin/authorization/#checking-api-access) API를 사용하여 접근 허가를 결정합니다.
 
