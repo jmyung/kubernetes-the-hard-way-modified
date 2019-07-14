@@ -17,7 +17,7 @@ sudo sysctl net.ipv4.conf.all.forwarding=1
 echo "net.ipv4.conf.all.forwarding=1" | sudo tee -a /etc/sysctl.conf
 ```
 
-## 2. 클러스터에 Weave Net 설치
+## 2. 클러스터에 네트워킹 플러그인 (Weave Net) 설치
 
 Weaveworks를 사용하여 Weave Net 설치
 ```sh

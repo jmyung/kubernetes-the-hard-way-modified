@@ -123,8 +123,7 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --service-node-port-range=30000-32767 \\
   --tls-cert-file=/var/lib/kubernetes/kubernetes.pem \\
   --tls-private-key-file=/var/lib/kubernetes/kubernetes-key.pem \\
-  --v=2 \\
-  --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS
+  --v=2
 Restart=on-failure
 RestartSec=5
 
@@ -135,7 +134,7 @@ EOF
 
 > 1.13 버전부터는 encryption-provider-config 로 변경
 
-> --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS 추가
+> 상황에 따라 --kubelet-preferred-address-types=InternalIP,InternalDNS,Hostname,ExternalIP,ExternalDNS 추가해야할 수 있음
 
 > 명 check : endpoint-reconciler-type=master-count 가 빠져있음
 
