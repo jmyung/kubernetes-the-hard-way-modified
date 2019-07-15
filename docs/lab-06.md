@@ -14,7 +14,7 @@
   - docker
   - ~~[runc](https://github.com/opencontainers/runc)~~
   - ~~[containerd](https://github.com/containerd/containerd)~~
-  - [container networking plugins](https://github.com/containernetworking/cni)
+  - ~~[container networking plugins](https://github.com/containernetworking/cni)~~
   - [gVisor](https://github.com/google/gvisor)
 
 - 아키텍쳐
@@ -48,7 +48,6 @@ OS dependencies 설치
 
 ```sh
 wget -q --show-progress --https-only --timestamping \
-  https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-proxy \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubelet
@@ -59,8 +58,6 @@ wget -q --show-progress --https-only --timestamping \
 
 ```sh
 sudo mkdir -p \
-  /etc/cni/net.d \
-  /opt/cni/bin \
   /var/lib/kubelet \
   /var/lib/kube-proxy \
   /var/lib/kubernetes \
@@ -73,7 +70,6 @@ sudo mkdir -p \
 {
   chmod +x kubectl kube-proxy kubelet
   sudo mv kubectl kube-proxy kubelet /usr/local/bin
-  sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
 }
 ```
 
