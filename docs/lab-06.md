@@ -48,6 +48,7 @@ OS dependencies 설치
 
 ```sh
 wget -q --show-progress --https-only --timestamping \
+  https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-proxy \
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubelet
@@ -58,6 +59,7 @@ wget -q --show-progress --https-only --timestamping \
 
 ```sh
 sudo mkdir -p \
+  /opt/cni/bin/ \
   /var/lib/kubelet \
   /var/lib/kube-proxy \
   /var/lib/kubernetes \
@@ -70,6 +72,7 @@ sudo mkdir -p \
 {
   chmod +x kubectl kube-proxy kubelet
   sudo mv kubectl kube-proxy kubelet /usr/local/bin
+  sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
 }
 ```
 
@@ -181,13 +184,20 @@ EOF
 
 ### 2-4. 워커 서비스 시작
 
-```
+```sh
 {
   sudo systemctl daemon-reload
   sudo systemctl enable kubelet kube-proxy
   sudo systemctl start kubelet kube-proxy
 }
 ```
+
+결과 확인
+```sh
+sudo systemctl status kubelet kube-proxy
+```
+
+`Active: active (running)` 로 나와야 합니다.
 
 > 각 워커 노드에서 위의 명령들을 실행해야합니다 : `worker-0`,`worker-1`
 

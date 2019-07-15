@@ -219,13 +219,20 @@ EOF
 
 ### 2-5. 마스터 노드 서비스 시작
 
-```
+```sh
 {
   sudo systemctl daemon-reload
   sudo systemctl enable kube-apiserver kube-controller-manager kube-scheduler
   sudo systemctl start kube-apiserver kube-controller-manager kube-scheduler
 }
 ```
+
+결과 확인
+```sh
+sudo systemctl status kube-apiserver kube-controller-manager kube-scheduler
+```
+
+`Active: active (running)` 로 나와야 합니다.
 
 ### 2-6. HTTP 헬스 체크 활성화
 
