@@ -234,6 +234,19 @@ sudo systemctl status kube-apiserver kube-controller-manager kube-scheduler
 
 `Active: active (running)` 로 나와야 합니다.
 
+컴포넌트 헬스 체크
+```sh
+kubectl get componentstatuses --kubeconfig admin.kubeconfig
+```
+
+```
+NAME                 STATUS    MESSAGE              ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+etcd-0               Healthy   {"health": "true"}
+etcd-1               Healthy   {"health": "true"}
+```
+
 ### 2-6. HTTP 헬스 체크 활성화
 
 로드 밸런서는 두 개의 API 서버를 통해 트래픽을 분배하고 각 API 서버가 TLS 연결을 종료하고 클라이언트 인증서의 유효성을 검증하는 데 사용됩니다. 네트워크 로드 밸런서는 HTTP 헬스 체크만 지원합니다. 즉, API 서버에 의해 노출된 HTTPS 엔드포인트는 사용할 수 없습니다.
@@ -278,18 +291,6 @@ sudo systemctl enable nginx
 ```
 
 ### 2-7. 확인
-
-```
-kubectl get componentstatuses --kubeconfig admin.kubeconfig
-```
-
-```
-NAME                 STATUS    MESSAGE              ERROR
-controller-manager   Healthy   ok
-scheduler            Healthy   ok
-etcd-0               Healthy   {"health": "true"}
-etcd-1               Healthy   {"health": "true"}
-```
 
 nginx HTTP 헬스 체크 프록시 테스트
 

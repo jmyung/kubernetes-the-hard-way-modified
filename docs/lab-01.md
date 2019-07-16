@@ -398,4 +398,4 @@ for instance in controller-0 controller-1; do
 done
 ```
 
-> 다음 랩에서는 `kube-proxy`, `kube-controller-manager`, `kube-scheduler`, `kubelet` 클라이언트 인증서를 사용하여 클라이언트 인증 설정 파일을 생성합니다.
+> 다음 랩에서는 `kube-proxy`, `kube-controller-manager`, `kube-scheduler`, `kubelet` 클라이언트 인증서를 사용하여 Kubernetes 설정 파일(kubeconfig)을 생성합니다.
