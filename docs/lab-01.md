@@ -112,7 +112,7 @@ admin.pem
 
 ### 3-2. Kubelet 클라이언트 인증서 및 개인키 생성
 
-- Kubernetes는 `Node Authorizer`라고하는 특수-목적의 인증 모드를 사용합니다.
+- 쿠버네티스는 `Node Authorizer`라고하는 특수-목적의 인증 모드를 사용합니다.
 - 이 모드에서는 Kubelet에서 만든 API 요청을 승인합니다.
 - Node Authorizer에 의해 권한을 부여 받으려면, Kubelet이 `system:node:<nodeName>`이라는 username으로 `system:nodes` 그룹에 있는 것으로 식별하는 credential을 사용해야합니다.
 - 이 섹션에서는 Node Authorizer 요구 사항을 충족하는 각 Kubernetes 워커 노드에 대한 인증서를 만듭니다.
