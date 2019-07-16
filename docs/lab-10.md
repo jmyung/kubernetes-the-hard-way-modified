@@ -246,7 +246,7 @@ nginx-65899c769f-xkfcn     1/1       Running   0          4m        10.200.1.2  
 untrusted                  1/1       Running   0          10s       10.200.0.3   worker-0
 ```
 
-`신뢰할 수 없는` 파드을 실행중인 노드 이름을 가져옵니다.
+`신뢰할 수 없는` 파드에서 실행중인 노드 이름을 가져옵니다.
 
 ```
 INSTANCE_NAME=$(kubectl get pod untrusted --output=jsonpath='{.spec.nodeName}')
