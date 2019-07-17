@@ -26,27 +26,44 @@
 - Select a project > New Project
 - `Project name` 기입 후 `CREATE` 버튼 클릭
 - `Cloud Shell` 버튼 클릭하여 이하 진행 (https://cloud.google.com/shell/)
+- 프로젝트ID 확인 (기입한 프로젝트명과 다를 수 있음)
 
 ### 2-2. 리전 설정 및 GCP API 활성화
 
-- 위에서 기입한 프로젝트명 변수화
+- 프로젝트ID 변수화
 ```sh
-ProjectName="프로젝트명"
+PROJECT_ID="프로젝트ID"
 ```
 
 - 리전 설정 및 GCP API 활성화
 ```sh
 {
-  gcloud config set project ${ProjectName}
+  gcloud config set project ${PROJECT_ID}
   gcloud config set compute/region us-west2
   gcloud config set compute/zone us-west2-c
   gcloud services enable compute.googleapis.com
 }
 ```
 
+- config-update.sh
+```sh
+mkdir setup
+cd setup
+vi config-update.sh
+```
+
+```sh
+PROJECT_ID="프로젝트ID"
+gcloud config set project ${PROJECT_ID}
+gcloud config set compute/region us-west2
+gcloud config set compute/zone us-west2-c
+```
+저장후
+```
+chmod +x config-update.sh
+```
+
 ### 2-3. VM 생성
-
-
 
 #### 2-3-1. 네트워크 생성
 
@@ -149,13 +166,6 @@ gcloud compute instances list
 ```
 
 ### 2-9. 자주쓰는 쉘 만들어놓기 (필수 아님)
-- config-update.sh
-```sh
-gcloud config set project {프로젝트명}
-gcloud config set compute/region us-west2
-gcloud config set compute/zone us-west2-c
-```
-
 - start.sh
 ```sh
 for instance in controller-0 controller-1 load-balancer worker-0 worker-1 ; do
