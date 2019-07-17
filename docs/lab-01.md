@@ -70,7 +70,18 @@ ca.pem
 
 ## 3. 클라이언트 및 서버 인증서 생성
 
+쿠버네티스는 다음 작업에서 인증서가 필요합니다.
+
+- [API 서버에 클러스터 관리자(admin) 인증을 위한 클라이언트 인증서](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-1-admin-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%8F-%EA%B0%9C%EC%9D%B8%ED%82%A4-%EC%83%9D%EC%84%B1)
+- [API 서버에서 kubelet과 통신을 위한 클라이언트 인증서](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-2-kubelet-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%8F-%EA%B0%9C%EC%9D%B8%ED%82%A4-%EC%83%9D%EC%84%B1)
+- [컨트롤러 매니저와 API 서버 간의 통신을 위한 클라이언트 인증서/kubeconfig](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-3-controller-manager-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%B8%EC%A6%9D%EC%84%9C)
+- [kube-proxy를 위한 클라이언트 인증서](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-4-kube-proxy-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%B8%EC%A6%9D%EC%84%9C)
+- [스케줄러와 API 서버간 통신을 위한 클라이언트 인증서/kubeconfig](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-5-scheduler-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9D%B8%EC%A6%9D%EC%84%9C)
+- [API 서버 엔드포인트를 위한 서버 인증서](https://github.com/jmyung/kubernetes-the-hard-way-modified/blob/master/docs/lab-01.md#3-6-kubernetes-api-%EC%84%9C%EB%B2%84-%EC%9D%B8%EC%A6%9D%EC%84%9C)
+
 ### 3-1. admin 클라이언트 인증서 및 개인키 생성
+
+API 서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
 
 ```sh
 {
@@ -112,10 +123,12 @@ admin.pem
 
 ### 3-2. Kubelet 클라이언트 인증서 및 개인키 생성
 
-- 쿠버네티스는 `Node Authorizer`라고하는 특수-목적의 인증 모드를 사용합니다.
+- 쿠버네티스는 `노드 인증(Node Authorizer)`라고하는 특수-목적의 인증 모드를 사용합니다.
 - 이 모드에서는 Kubelet에서 만든 API 요청을 승인합니다.
-- Node Authorizer에 의해 권한을 부여 받으려면, Kubelet이 `system:node:<nodeName>`이라는 username으로 `system:nodes` 그룹에 있는 것으로 식별하는 credential을 사용해야합니다.
-- 이 섹션에서는 Node Authorizer 요구 사항을 충족하는 각 Kubernetes 워커 노드에 대한 인증서를 만듭니다.
+- 노드 인증에 의해 권한을 부여 받으려면, Kubelet이 `system:node:<nodeName>`이라는 username으로 `system:nodes` 그룹에 있는 것으로 식별하는 credential을 사용해야합니다.
+- 이 섹션에서는 노드 인증 요구 사항을 충족하는 각 Kubernetes 워커 노드에 대한 인증서를 만듭니다.
+
+API 서버에서 kubelet과 통신을 위한 클라이언트 인증서
 
 ```sh
 for instance in worker-0 worker-1; do
