@@ -2,11 +2,8 @@
 
 - 실습 간 슬랙을 활용합니다.
   - 가입링크 : http://34.94.33.120/ 를 클릭하여 이메일을 기재하시면 초대메일이 발송됩니다.
+  - 슬랙 주소 : https://peanut-butter-group.slack.com
   - Channels > `#k8s-the-hard-way` 채널 조인
-- (위방법이 안되거나, 초대메일을 못받으시는 경우)
-  - 먼저, spam 메일함을 확인해주세요 :)
-  - jesang.myung@gmail.com 으로 실습자의 이메일을 알려주시면, 해당 메일로 슬랙 초대메일 드리겠습니다.
-  - 메일제목 : `하드웨이 슬랙 가입요청`
 - 참석 전에 반드시, 쿠버네티스 클러스터를 설치할 VM을 미리 구성해주시기 바랍니다.
   - 이하 절차 수행
   - 문의 사항은 슬랙에 올려주세요.
@@ -193,3 +190,12 @@ sudo mv cfssl_linux-amd64 /usr/local/bin/cfssl
 sudo mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
 ./start.sh
 ```
+
+- CLEAN UP
+  - 방법1
+```sh
+for instance in controller-0 controller-1 load-balancer worker-0 worker-1 ; do
+  gcloud compute instances delete ${instance}
+done
+```
+  - 방법2 : 콘솔에서 프로젝트를 delete 하면 생성한 자원들이 모두 삭제됩니다.
