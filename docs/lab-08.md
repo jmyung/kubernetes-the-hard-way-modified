@@ -5,6 +5,9 @@
   - 각 파드에는 고유한 IP가 존재
   - 서비스는 파드와 다른 범위의 IP 대역을 가짐
 
+- 네트워크 구성
+    ![architecture](k8s-network.png "architecture")
+
 - 클러스터 네트워크 아키텍쳐
   - 클러스터 CIDR : 클러스터 내 파드에 할당하는데 사용되는 IP 범위. 여기서는 [10.200.0.0/16](lab-05.md#2-3-쿠버네티스-controller-manager-구성하기)
   - 서비스 클러스터 IP 범위 : 서비스에 대한 IP 범위. 이것은 클러스터 CIDR와 중복되어서는 안됩니다. 여기서는 [10.32.0.0/24](lab-05.md#2-3-쿠버네티스-controller-manager-구성하기)
