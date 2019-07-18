@@ -10,7 +10,9 @@
 
 ## 순서
 
-0. [사전준비](./docs/prerequisites.md)
+- [사전준비](./docs/prerequisites.md)
+
+
 0. [시작하기 전에](./docs/lab-00.md)
 1. [CA 프로비저닝 및 TLS 인증서 생성](./docs/lab-01.md)
 2. [인증을 위한 Kubernetes config 파일 생성](./docs/lab-02.md)
