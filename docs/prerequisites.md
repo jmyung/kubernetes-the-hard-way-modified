@@ -198,4 +198,8 @@ for instance in controller-0 controller-1 load-balancer worker-0 worker-1 ; do
   gcloud compute instances delete ${instance}
 done
 ```
+```sh
+gcloud compute addresses delete kubernetes-the-hard-way \
+  --region $(gcloud config get-value compute/region)
+```
   - 방법2 : 콘솔에서 프로젝트를 delete 하면 생성한 자원들이 모두 삭제됩니다.
